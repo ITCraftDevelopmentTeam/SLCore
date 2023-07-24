@@ -12,19 +12,59 @@ public class Prefabs
         "  |  | 举例: 'help find' 就是查找关于命令find的帮助，不需要填写find的参数\n" +
         "  -  -\n",
         null,
-        new Action(subs =>
+        new Action(args =>
             {
-                string content = "SimpleLauncher帮助文档\n" +
-                                 "本文档主要内容为启动器支持的所有命令的用法，以及一些其他的小技巧\n" +
-                                 "\n" +
-                                 "\n";
-                Console.Out.WriteLine(content);
-                foreach (var help in CommandPool.Pool)
+                if (args == null || args.Length == 0)
                 {
-                    Console.Out.WriteLine((help as CommandInstance)?.HelpContent);
+                    string content = "SimpleLauncher帮助文档\n" +
+                                     "本文档主要内容为启动器支持的所有命令的用法，以及一些其他的小技巧\n" +
+                                     "\n" +
+                                     "\n";
+                    Console.Out.WriteLine(content);
+                    foreach (var help in CommandPool.Pool)
+                    {
+                        Console.Out.WriteLine((help as CommandInstance)?.HelpContent);
+                    }
                 }
+                else
+                {
+                    foreach (var help in CommandPool.Pool)
+                    {
+                        if ((help as CommandInstance).IsMatchId(args[0]))
+                        {
+                            Console.Out.WriteLine((help as CommandInstance).HelpContent);
+                        }
+                    }
+                }
+            },
+            ActionType.Full
+        )
+    );
 
-                return true;
+    public static CommandInstance CMD_EXIT = new CommandInstance(
+        new string[3] { "exit", "quit", "q" },
+        "exit | quit | q: 退出启动器\n",
+        null,
+        new Action(
+            args =>
+            {
+                Console.Out.WriteLine("正在退出程序...");
+                Environment.Exit(0);
+            },
+            ActionType.Full
+        )
+    );
+
+    public static CommandInstance CMD_VERSION = new CommandInstance(
+        new string[3] { "version", "ver", "Version" },
+        "version | ver | Version: 查看启动器及其核心版本\n",
+        null,
+        new Action(
+            args =>
+            {
+                Utils.SLOutput.Print("当前核心版本: " + CoreInfo.Info.CoreVersion, ConsoleColor.Green);
+                Utils.SLOutput.Print("当前启动器版本: " + CoreInfo.Info.LauncherVersion, ConsoleColor.Green);
+                Utils.SLOutput.Print("程序使用许可证: " + CoreInfo.Info.License, ConsoleColor.Cyan);
             },
             ActionType.Full
         )
