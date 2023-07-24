@@ -3,8 +3,7 @@
 using System;
 using System.Collections;
 using SLCore.Errors;
-
-public delegate bool HandCmdAction(string[] subs);
+public delegate void HandCmdAction(string[]? args);
 
 /// <summary>
 /// 决定Action的类型，默认为Seg
@@ -46,11 +45,11 @@ public class Action
         else return _actionType;
     }
 
-    public bool Do(string[]? args)
+    public void Do(string[]? args)
     {
         if (_actionBody == null)
             throw new ActionNullException(ActionNullExceptionOptions.OnUsing);
-        else return _actionBody(args);
+        else _actionBody(args);
     }
 
     public void BindBody(HandCmdAction action)
@@ -99,42 +98,6 @@ public class CommandInstance
         this.HelpContent = help;
         
         this.Subs = sub_cmds;
-
-        this._action = new Action(action, ActionType.Seg);
-    }
-
-    public CommandInstance(string[] ids, CommandInstance[]? sub_cmds)
-    {
-        int index = 0;
-        foreach (string id in ids)
-        {
-            this._id[index] = new Identifier(id);
-            ++index;
-        }
-
-        this.Subs = sub_cmds;
-    }
-
-    public CommandInstance(string text, HandCmdAction action)
-    {
-        this._id[0] = new Identifier(text);
-        this._action = new Action(action, ActionType.Seg);
-    }
-
-    public CommandInstance(Identifier id, HandCmdAction action)
-    {
-        this._id[0] = id;
-        this._action = new Action(action, ActionType.Seg);
-    }
-
-    public CommandInstance(string[] ids, HandCmdAction action)
-    {
-        int index = 0;
-        foreach (string id in ids)
-        {
-            this._id[index] = new Identifier(id);
-            ++index;
-        }
 
         this._action = new Action(action, ActionType.Seg);
     }
@@ -195,10 +158,15 @@ public class CommandInstance
 
     //举个例子
     // 现在的命令： forge install 1.0.0
-    public bool Do(string[]? subs)
+    public void Do(string[]? subs)
     {
         if (_action?.GetType() == ActionType.Seg)
         {
+            if (subs.Length == 0)
+                throw new CommandArgumentError(CommandArgumentErrorOptions.MissingParameterError);
+
+            bool isPassed = false;
+            
             // 处理 “install 1.0.0” (当然install这里为Full-Action，应该在下面的块中)
             foreach (var child in Subs)
             {
@@ -206,16 +174,19 @@ public class CommandInstance
 
                 if (child.IsMatchId(subs[0]))
                 {
-                    return child.Do(ArgumentManager.ConsumeHead(subs));
+                    child.Do(ArgumentManager.ConsumeHead(subs));
+                    isPassed = true;
                 }
             }
-
-            throw new CommandArgumentError(CommandArgumentErrorOptions.WrongParameterError);
+            
+            if (!isPassed)
+                throw new CommandArgumentError(CommandArgumentErrorOptions.WrongParameterError);
+            
         }
         else
         {
             // 如果是Full类型的Action则剩下的全交给该Action
-            return _action.Do(ArgumentManager.ConsumeHead(subs));
+            _action.Do(subs);
         }
     }
 
