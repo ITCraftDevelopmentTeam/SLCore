@@ -11,7 +11,9 @@ public class CommandPool
     public static void InitPool()
     {
         Pool = new ArrayList();
-        Pool.Add(Prefabs.CMD_HELP);
+        SLRegister.register(Prefabs.CMD_HELP);
+        SLRegister.register(Prefabs.CMD_VERSION);
+        SLRegister.register(Prefabs.CMD_EXIT);
     }
 }
 
