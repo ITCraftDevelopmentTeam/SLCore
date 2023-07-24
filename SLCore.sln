@@ -1,6 +1,6 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLCore", "SLCore.csproj", "{74854714-83B5-4DDF-85D6-F2DE4F37E65C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLCore", "SLCore.csproj", "{74854714-83B5-4DDF-85D6-F2DE4F37E65C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
