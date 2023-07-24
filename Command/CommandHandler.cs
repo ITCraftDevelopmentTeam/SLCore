@@ -4,8 +4,10 @@ namespace SLCore.Command;
 
 public class CommandHandler
 {
-    public static bool HandCommand(string input)
+    public static void HandCommand(string input)
     {
+        bool isDone = false;
+        
         if (CommandPool.Pool == null)
             throw new CommandPoolNullException();
 
@@ -15,10 +17,12 @@ public class CommandHandler
         {
             if (cmd.IsMatchId(segs[0]))
             {
-                return cmd.Do(segs.Skip(1).ToArray());
+                cmd.Do(segs.Skip(1).ToArray());
+                isDone = true;
             }
         }
 
-        return false;
+        if (!isDone)
+            throw new UnknownCommandError(input);
     }
 }
