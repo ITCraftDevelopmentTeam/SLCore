@@ -38,3 +38,4 @@ jobs:
         with:
           name: SLCore-${{matrix.os}}
           path: ${{github.workspace}}/bin/Release/net.7.0
+
