@@ -21,7 +21,7 @@ internal sealed class ExitCommand : ISLCommand
     public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
         SLOutput.Print("正在退出程序...");
-        launcher.RequestClose();
+        this.launcher.RequestClose();
         return Task.FromResult<ISLCommand?>(null);
     }
 }

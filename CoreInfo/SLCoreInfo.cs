@@ -8,6 +8,6 @@ public sealed class SLCoreInfo
         this.launcher = launcher;
     }
     public string CoreVersion => "RELEASE-2023722-0100";
-    public string LauncherVersion => launcher.LauncherVersion;
+    public string LauncherVersion => this.launcher.LauncherVersion;
     public string License => "MIT";
 }

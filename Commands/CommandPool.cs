@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using SLCore.Commands.Prefabs;
 
 namespace SLCore.Commands;
 
@@ -11,7 +10,7 @@ public sealed class CommandPool
     public CommandPool(SimpleLauncherCore core)
     {
         this.commands = new List<ISLCommand>();
-        this.Commands = new ReadOnlyCollection<ISLCommand>(commands);
+        this.Commands = new ReadOnlyCollection<ISLCommand>(this.commands);
     }
 
     public void Register(ISLCommand command)

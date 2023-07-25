@@ -1,9 +1,4 @@
 ﻿using SLCore.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SLCore.Commands.Prefabs;
 internal sealed class HelpCommand : ISLCommand
@@ -34,7 +29,7 @@ internal sealed class HelpCommand : ISLCommand
     {
         if (args.Any())
         {
-            var command = core.CommandPool.FindExactlyMatched(args.First());
+            var command = this.core.CommandPool.FindExactlyMatched(args.First());
             SLOutput.Print(command?.HelpContent);
         }
         else
@@ -44,7 +39,7 @@ internal sealed class HelpCommand : ISLCommand
                 $"本文档主要内容为启动器支持的所有命令的用法，以及一些其他的小技巧{Environment.NewLine}" +
                 $"{Environment.NewLine}" +
                 $"{Environment.NewLine}");
-            foreach (var command in core.CommandPool.Commands)
+            foreach (var command in this.core.CommandPool.Commands)
             {
                 SLOutput.Print(command.HelpContent);
             }

@@ -1,9 +1,4 @@
 ﻿using SLCore.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SLCore.Commands.Prefabs;
 internal sealed class VersionCommand : ISLCommand
@@ -26,9 +21,9 @@ internal sealed class VersionCommand : ISLCommand
 
     public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
-        SLOutput.Print("当前核心版本: " + core.CoreInfo.CoreVersion, ConsoleColor.Green);
-        SLOutput.Print("当前启动器版本: " + core.CoreInfo.LauncherVersion, ConsoleColor.Green);
-        SLOutput.Print("程序使用许可证: " + core.CoreInfo.License, ConsoleColor.Cyan);
+        SLOutput.Print("当前核心版本: " + this.core.CoreInfo.CoreVersion, ConsoleColor.Green);
+        SLOutput.Print("当前启动器版本: " + this.core.CoreInfo.LauncherVersion, ConsoleColor.Green);
+        SLOutput.Print("程序使用许可证: " + this.core.CoreInfo.License, ConsoleColor.Cyan);
         return Task.FromResult<ISLCommand?>(null);
     }
 }
