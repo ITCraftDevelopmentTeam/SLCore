@@ -1,11 +1,7 @@
 ﻿namespace SLCore.Errors;
 
-public class UnknownCommandError : Exception
+public class UnknownCommandError : Exception, IError
 {
-    private static string content = "输入了未知的命令, 您的输入: ";
-
-    public UnknownCommandError(string cmd)
-        : base(content + cmd)
-    {
-    }
+    public UnknownCommandError(string command)
+        : base($"输入了未知的命令, 您的输入：{command}") { }
 }

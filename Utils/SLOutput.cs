@@ -1,19 +1,23 @@
 ﻿namespace SLCore.Utils;
 
-using System.Drawing;
-
-public class SLOutput
+public static class SLOutput
 {
-    public static void Print(string text, ConsoleColor color)
+    public static void Print(string? text, ConsoleColor? color = null)
     {
-        var _default = Console.ForegroundColor; 
-        Console.ForegroundColor = color;
+        if (!color.HasValue)
+        {
+            Console.WriteLine(text);
+            return;
+        }
+        var previousColor = Console.ForegroundColor;
+        Console.ForegroundColor = color.Value;
         Console.WriteLine(text);
-        Console.ForegroundColor = _default;
+        Console.ForegroundColor = previousColor;
     }
 
+    [Obsolete("不如放到 launcher 里面去")]
     public static void Prompt()
     {
-        Console.Out.Write("launcher >> ");
+        Console.Write("launcher >> ");
     }
 }
