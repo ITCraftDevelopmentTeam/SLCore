@@ -3,7 +3,7 @@
 using System;
 using System.Collections;
 using SLCore.Errors;
-public delegate void HandCmdAction(string[]? args);
+public delegate void HandCmdAction(string[] args);
 
 /// <summary>
 /// 决定Action的类型，默认为Seg
@@ -18,7 +18,12 @@ public enum ActionType
     /// <summary>
     /// 不调用子命令，剩下的均归该Action所有
     /// </summary>
-    Full
+    Full,
+    
+    /// <summary>
+    /// 带有表达式的子命令，相当于 -core=release 这种
+    /// </summary>
+    Expr
 }
 
 public class Action
@@ -45,7 +50,7 @@ public class Action
         else return _actionType;
     }
 
-    public void Do(string[]? args)
+    public void Do(string[] args)
     {
         if (_actionBody == null)
             throw new ActionNullException(ActionNullExceptionOptions.OnUsing);
@@ -76,17 +81,17 @@ public class Identifier
     }
 }
 
-public class CommandInstance
+public class SLCommand
 {
     private Identifier?[] _id = new Identifier[3];
     private Action? _action;
-    public CommandInstance?[]? Subs = null;
+    public SLCommand?[]? Subs = null;
     /// <summary>
     /// 指令的帮助
     /// </summary>
     public string? HelpContent;
 
-    public CommandInstance(string[] ids, string help, CommandInstance[]? sub_cmds, HandCmdAction action)
+    public SLCommand(string[] ids, string help, SLCommand[]? sub_cmds, HandCmdAction action)
     {
         int index = 0;
         foreach (string id in ids)
@@ -102,7 +107,7 @@ public class CommandInstance
         this._action = new Action(action, ActionType.Seg);
     }
 
-    public CommandInstance(string[] ids, string help, CommandInstance[]? sub_cmds, Action action)
+    public SLCommand(string[] ids, string help, SLCommand[]? sub_cmds, Action action)
     {
         int index = 0;
         foreach (string id in ids)
@@ -118,19 +123,19 @@ public class CommandInstance
         this._action = action;
     }
 
-    public CommandInstance(string text, Action action)
+    public SLCommand(string text, Action action)
     {
         this._id[0] = new Identifier(text);
         this._action = action;
     }
 
-    public CommandInstance(Identifier id, Action action)
+    public SLCommand(Identifier id, Action action)
     {
         this._id[0] = id;
         this._action = action;
     }
 
-    public CommandInstance(string[] ids, Action action)
+    public SLCommand(string[] ids, Action action)
     {
         int index = 0;
         foreach (string id in ids)
@@ -142,11 +147,11 @@ public class CommandInstance
         this._action = action;
     }
 
-    public CommandInstance(string text) => this._id[0] = new Identifier(text);
+    public SLCommand(string text) => this._id[0] = new Identifier(text);
 
-    public CommandInstance(Identifier id) => this._id[0] = id;
+    public SLCommand(Identifier id) => this._id[0] = id;
 
-    public CommandInstance(string[] ids)
+    public SLCommand(string[] ids)
     {
         int index = 0;
         foreach (string id in ids)
@@ -158,7 +163,7 @@ public class CommandInstance
 
     //举个例子
     // 现在的命令： forge install 1.0.0
-    public void Do(string[]? subs)
+    public void Do(string[] subs)
     {
         if (_action?.GetType() == ActionType.Seg)
         {

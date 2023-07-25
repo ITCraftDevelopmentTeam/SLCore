@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageId>SLCore</PackageId>
-    <Version>0.1</Version>
-    <Authors>FZSGBall</Authors>
-    <Company>IT Craft DevelopTeam</Company>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Colorful.Console" Version="1.2.15" />
-    <PackageReference Include="MinecraftLaunch" Version="1.9.5-preview3" />
-    <PackageReference Include="MinecraftOAuth" Version="1.9.2" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>SLCore</PackageId>
+        <Version>0.1.2</Version>
+        <Authors>FZSGBall</Authors>
+        <Company>IT Craft DevelopTeam</Company>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Colorful.Console" Version="1.2.15"/>
+        <PackageReference Include="MinecraftLaunch" Version="1.9.5-preview3"/>
+        <PackageReference Include="MinecraftOAuth" Version="1.9.2"/>
+    </ItemGroup>
 </Project>
