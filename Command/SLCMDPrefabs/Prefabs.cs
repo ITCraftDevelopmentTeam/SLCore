@@ -2,7 +2,7 @@
 
 public class Prefabs
 {
-    public static CommandInstance CMD_HELP = new CommandInstance(
+    public static SLCommand CMD_HELP = new SLCommand(
         new string[3] { "help", "h", "hp" },
         "help: 查看SimpleLauncher的帮助\n" +
         "  |子命令: 所有已经注册的命令均为该命令的子命令\n" +
@@ -23,16 +23,16 @@ public class Prefabs
                     Console.Out.WriteLine(content);
                     foreach (var help in CommandPool.Pool)
                     {
-                        Console.Out.WriteLine((help as CommandInstance)?.HelpContent);
+                        Console.Out.WriteLine((help as SLCommand)?.HelpContent);
                     }
                 }
                 else
                 {
                     foreach (var help in CommandPool.Pool)
                     {
-                        if ((help as CommandInstance).IsMatchId(args[0]))
+                        if ((help as SLCommand).IsMatchId(args[0]))
                         {
-                            Console.Out.WriteLine((help as CommandInstance).HelpContent);
+                            Console.Out.WriteLine((help as SLCommand).HelpContent);
                         }
                     }
                 }
@@ -41,7 +41,7 @@ public class Prefabs
         )
     );
 
-    public static CommandInstance CMD_EXIT = new CommandInstance(
+    public static SLCommand CMD_EXIT = new SLCommand(
         new string[3] { "exit", "quit", "q" },
         "exit | quit | q: 退出启动器\n",
         null,
@@ -55,7 +55,7 @@ public class Prefabs
         )
     );
 
-    public static CommandInstance CMD_VERSION = new CommandInstance(
+    public static SLCommand CMD_VERSION = new SLCommand(
         new string[3] { "version", "ver", "Version" },
         "version | ver | Version: 查看启动器及其核心版本\n",
         null,

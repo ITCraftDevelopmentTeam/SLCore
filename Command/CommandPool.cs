@@ -19,18 +19,18 @@ public class CommandPool
 
 public class SLRegister
 {
-    public static void register(CommandInstance command)
+    public static void register(SLCommand slCommand)
     {
         // 对command是否合法进行排查
-        if (command.GetDefaultId() == null)
+        if (slCommand.GetDefaultId() == null)
             throw new CommandIdNullException();
         
-        if (command.HelpContent == null)
-            throw new HelpContentNullException(command.GetDefaultId().GetText());
+        if (slCommand.HelpContent == null)
+            throw new HelpContentNullException(slCommand.GetDefaultId().GetText());
 
-        if (command.GetAction() == null)
-            throw new ActionNullException(ActionNullExceptionOptions.OnChecking, command.GetDefaultId().GetText());
+        if (slCommand.GetAction() == null)
+            throw new ActionNullException(ActionNullExceptionOptions.OnChecking, slCommand.GetDefaultId().GetText());
 
-        CommandPool.Pool?.Add(command);
+        CommandPool.Pool?.Add(slCommand);
     }
 }

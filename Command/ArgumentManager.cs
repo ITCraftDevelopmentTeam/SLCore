@@ -2,12 +2,12 @@
 
 public class ArgumentManager
 {
-    public static string MergeArgs(string[]? segs)
+    public static string MergeArgs(string[] args)
     {
         string ret = new string((ReadOnlySpan<char>)"");
-        if (segs != null)
+        if (args != null)
         {
-            foreach (var seg in segs)
+            foreach (var seg in args)
             {
                 ret += seg + " ";
             }
@@ -17,8 +17,8 @@ public class ArgumentManager
         return ret;
     }
 
-    public static string[]? ConsumeHead(string[]? segs)
+    public static string[] ConsumeHead(string[] args)
     {
-        return segs?.Skip(1).ToArray();
+        return args.Skip(1).ToArray();
     }
 }
