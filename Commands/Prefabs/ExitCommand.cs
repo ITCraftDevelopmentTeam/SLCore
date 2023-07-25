@@ -3,11 +3,6 @@
 namespace SLCore.Commands.Prefabs;
 internal sealed class ExitCommand : ISLCommand
 {
-    public void Dispose()
-    {
-        return;
-    }
-
     public string Id { get; } = "simplelauncher:exit";
 
     public IEnumerable<string> Aliases { get; } = new string[]
@@ -17,7 +12,7 @@ internal sealed class ExitCommand : ISLCommand
 
     public string HelpContent => $"exit | quit | q: 退出启动器{Environment.NewLine}";
 
-    public Task<ISLCommand?> Execute(IEnumerable<string> args)
+    public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
         SLOutput.Print("正在退出程序...");
 

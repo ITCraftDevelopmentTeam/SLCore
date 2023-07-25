@@ -19,6 +19,6 @@ public sealed class SimpleLauncherCore : IDisposable
 
     public void Dispose()
     {
-        this.CommandPool.Dispose();
+        // TODO: 需要把插件 Dispose 了
     }
 }

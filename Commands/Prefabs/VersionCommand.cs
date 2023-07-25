@@ -13,10 +13,6 @@ internal sealed class VersionCommand : ISLCommand
     {
         this.core = core;
     }
-    public void Dispose()
-    {
-        return;
-    }
 
     public string Id { get; } = "simplelauncher:version";
 
@@ -28,7 +24,7 @@ internal sealed class VersionCommand : ISLCommand
 
     public string HelpContent => $"version | ver | Version: 查看启动器及其核心版本{Environment.NewLine}";
 
-    public Task<ISLCommand?> Execute(IEnumerable<string> args)
+    public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
         SLOutput.Print("当前核心版本: " + core.CoreInfo.CoreVersion, ConsoleColor.Green);
         SLOutput.Print("当前启动器版本: " + core.CoreInfo.LauncherVersion, ConsoleColor.Green);

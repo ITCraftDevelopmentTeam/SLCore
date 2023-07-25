@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using SLCore.Commands.Prefabs;
-using SLCore.Errors;
 
 namespace SLCore.Commands;
 
-public sealed class CommandPool : IDisposable
+public sealed class CommandPool
 {
     private readonly List<ISLCommand> commands;
     public IReadOnlyList<ISLCommand> Commands { get; }
@@ -29,11 +28,11 @@ public sealed class CommandPool : IDisposable
         _ = this.commands.Remove(command);
     }
 
-    private static async ValueTask ExecuteRecursively(ISLCommand? command, IEnumerable<string> args)
+    private static async ValueTask ExecuteRecursivelyAsync(ISLCommand? command, IEnumerable<string> args)
     {
         for (; command is not null;)
         {
-            command = await command.Execute(args);
+            command = await command.ExecuteAsync(args);
             args = args.Skip(1);
         }
     }
@@ -55,7 +54,7 @@ public sealed class CommandPool : IDisposable
         return result;
     }
 
-    public async Task Execute(string commandText)
+    public async ValueTask ExecuteAsync(string commandText)
     {
         string[] args = commandText.Split(
             new char[] { ' ', '\t' },
@@ -64,12 +63,6 @@ public sealed class CommandPool : IDisposable
             return;
 
         var command = this.FindExactlyMatched(args[0]);
-        await ExecuteRecursively(command, args.Skip(1));
-    }
-
-    public void Dispose()
-    {
-        foreach (var command in this.commands)
-            command.Dispose();
+        await ExecuteRecursivelyAsync(command, args.Skip(1));
     }
 }

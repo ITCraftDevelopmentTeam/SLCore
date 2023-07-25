@@ -13,10 +13,6 @@ internal sealed class HelpCommand : ISLCommand
     {
         this.core = core;
     }
-    public void Dispose()
-    {
-        return;
-    }
 
     public string Id { get; } = "simplelauncher:help";
 
@@ -34,7 +30,7 @@ internal sealed class HelpCommand : ISLCommand
         $"  |  | 举例: 'help find' 就是查找关于命令find的帮助，不需要填写find的参数{Environment.NewLine}" +
         $"  -  -{Environment.NewLine}";
 
-    public Task<ISLCommand?> Execute(IEnumerable<string> args)
+    public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
         if (args.Any())
         {

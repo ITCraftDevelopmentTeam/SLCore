@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SLCore.Commands;
-public interface ISLCommand : IDisposable
+public interface ISLCommand
 {
     string Id { get; }
     IEnumerable<string> Aliases { get; }
     string HelpContent { get; }
-    Task<ISLCommand?> Execute(IEnumerable<string> args);
+    Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args);
 }
