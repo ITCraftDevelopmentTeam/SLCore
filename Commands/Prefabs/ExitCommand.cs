@@ -3,6 +3,12 @@
 namespace SLCore.Commands.Prefabs;
 internal sealed class ExitCommand : ISLCommand
 {
+    private readonly ILauncher launcher;
+    public ExitCommand(ILauncher launcher)
+    {
+        this.launcher = launcher;
+    }
+
     public string Id { get; } = "simplelauncher:exit";
 
     public IEnumerable<string> Aliases { get; } = new string[]
@@ -15,9 +21,7 @@ internal sealed class ExitCommand : ISLCommand
     public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
         SLOutput.Print("正在退出程序...");
-
-        // TODO: 最好不要直接用 Environment.Exit(0); 。可以在 core 里面加一个 close 方法，并且具体如何关闭由 launcher 处理。
-        Environment.Exit(0);
+        launcher.RequestClose();
         return Task.FromResult<ISLCommand?>(null);
     }
 }

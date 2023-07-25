@@ -12,10 +12,6 @@ public sealed class CommandPool
     {
         this.commands = new List<ISLCommand>();
         this.Commands = new ReadOnlyCollection<ISLCommand>(commands);
-
-        this.Register(new HelpCommand(core));
-        this.Register(new VersionCommand(core));
-        this.Register(new ExitCommand());
     }
 
     public void Register(ISLCommand command)
