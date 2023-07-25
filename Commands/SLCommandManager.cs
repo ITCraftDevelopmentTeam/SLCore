@@ -2,12 +2,12 @@
 
 namespace SLCore.Commands;
 
-public sealed class CommandPool
+public sealed class SLCommandManager
 {
     private readonly List<ISLCommand> commands;
     public IReadOnlyList<ISLCommand> Commands { get; }
 
-    public CommandPool(SimpleLauncherCore core)
+    public SLCommandManager(SimpleLauncherCore core)
     {
         this.commands = new List<ISLCommand>();
         this.Commands = new ReadOnlyCollection<ISLCommand>(this.commands);

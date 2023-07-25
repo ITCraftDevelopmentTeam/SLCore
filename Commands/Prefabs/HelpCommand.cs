@@ -29,7 +29,7 @@ internal sealed class HelpCommand : ISLCommand
     {
         if (args.Any())
         {
-            var command = this.core.CommandPool.FindExactlyMatched(args.First());
+            var command = this.core.SlCommandManager.FindExactlyMatched(args.First());
             SLOutput.Print(command?.HelpContent);
         }
         else
@@ -39,7 +39,7 @@ internal sealed class HelpCommand : ISLCommand
                 $"本文档主要内容为启动器支持的所有命令的用法，以及一些其他的小技巧{Environment.NewLine}" +
                 $"{Environment.NewLine}" +
                 $"{Environment.NewLine}");
-            foreach (var command in this.core.CommandPool.Commands)
+            foreach (var command in this.core.SlCommandManager.Commands)
             {
                 SLOutput.Print(command.HelpContent);
             }
