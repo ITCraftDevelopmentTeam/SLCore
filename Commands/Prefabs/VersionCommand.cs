@@ -13,11 +13,10 @@ internal sealed class VersionCommand : ISLCommand
 
     public IEnumerable<string> Aliases { get; } = new string[]
     {
-        // TODO: 这个大小写就很灵性
-        "version", "ver", "Version"
+        "version", "ver"
     };
 
-    public string HelpContent => $"version | ver | Version: 查看启动器及其核心版本{Environment.NewLine}";
+    public string HelpContent => $"version | ver: 查看启动器及其核心版本{Environment.NewLine}";
 
     public Task<ISLCommand?> ExecuteAsync(IEnumerable<string> args)
     {
