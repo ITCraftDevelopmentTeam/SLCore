@@ -10,7 +10,7 @@ public interface ISLCommand
     /// </summary>
     string Id { get; }
     /// <summary>
-    /// 别名，一般用户通过别名输入1
+    /// 别名，一般用户通过别名输入
     /// </summary>
     IEnumerable<string> Aliases { get; }
     /// <summary>
