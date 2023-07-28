@@ -1,5 +1,5 @@
-﻿using MinecraftLaunch.Modules;
-using MinecraftLaunch.Modules.Models.Launch;
+﻿using MinecraftLaunch.Modules.Models.Launch;
+using MinecraftLaunch.Modules.Utils;
 using SLCore.Commands;
 using SLCore.Commands.Prefabs;
 using SLCore.CoreInfo;
@@ -8,7 +8,7 @@ namespace SLCore;
 
 public sealed class SimpleLauncherCore : IDisposable
 {
-    public GameCore CoreToolKit { get; }
+    public GameCoreUtil CoreToolKit { get; }
     public SLCommandManager SlCommandManager { get; }
     public SLCoreInfo CoreInfo { get; }
 
