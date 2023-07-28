@@ -31,7 +31,12 @@ public sealed class SLCommandManager
             args = args.Skip(1);
         }
     }
-
+    
+    /// <summary>
+    /// 找到匹配的指令
+    /// </summary>
+    /// <param name="commandIdOrAlias">命令的ID或者是别名</param>
+    /// <returns>如果找到了返回该命令实例，否则返回null</returns>
     public ISLCommand? FindExactlyMatched(string commandIdOrAlias)
     {
         ISLCommand? result = null;
@@ -49,6 +54,30 @@ public sealed class SLCommandManager
         return result;
     }
 
+    public ISLCommand? FindExactlyMatched(string[] targets)
+    {
+        ISLCommand? result = null;
+        foreach (var target in targets)
+        {
+            foreach (var command in this.commands)
+            {
+                if (command.Id == target)
+                    return command;
+
+                if (command.Aliases.Contains(target))
+                {
+                    result = command;
+                    continue;
+                }
+            }
+        }
+        return result;
+    }
+    
+    /// <summary>
+    /// 运行一条指令
+    /// </summary>
+    /// <param name="commandText">输入内容，或者传入的字符串供解析</param>
     public async ValueTask ExecuteAsync(string commandText)
     {
         string[] args = commandText.Split(
