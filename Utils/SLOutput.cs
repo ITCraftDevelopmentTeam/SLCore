@@ -14,10 +14,4 @@ public static class SLOutput
         Console.WriteLine(text);
         Console.ForegroundColor = previousColor;
     }
-
-    [Obsolete("不如放到 launcher 里面去")]
-    public static void Prompt()
-    {
-        Console.Write("launcher >> ");
-    }
 }
