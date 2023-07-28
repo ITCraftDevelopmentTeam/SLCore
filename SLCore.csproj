@@ -10,6 +10,6 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="MinecraftLaunch" Version="1.9.5-preview5" />
+	  <PackageReference Include="MinecraftLaunch" Version="1.9.5-preview6" />
 	</ItemGroup>
 </Project>
