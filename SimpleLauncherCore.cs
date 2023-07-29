@@ -11,10 +11,12 @@ public sealed class SimpleLauncherCore : IDisposable
     public GameCoreUtil CoreToolKit { get; }
     public SLCommandManager SlCommandManager { get; }
     public SLCoreInfo CoreInfo { get; }
+    public LaunchConfig LaunchConfig { get; set; }
 
     public SimpleLauncherCore(ILauncher launcher)
     {
         this.CoreToolKit = new GameCore();
+        this.LaunchConfig = new LaunchConfig();
         this.SlCommandManager = new SLCommandManager(this);
         this.CoreInfo = new SLCoreInfo(launcher);
 
