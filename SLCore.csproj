@@ -11,5 +11,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="MinecraftLaunch" Version="1.9.5-preview6" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 </Project>

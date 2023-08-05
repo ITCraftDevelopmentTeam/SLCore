@@ -15,7 +15,7 @@ public sealed class SimpleLauncherCore : IDisposable
 
     public SimpleLauncherCore(ILauncher launcher)
     {
-        this.CoreToolKit = new GameCore();
+        this.CoreToolKit = new(".minecraft");
         this.LaunchConfig = new LaunchConfig();
         this.SlCommandManager = new SLCommandManager(this);
         this.CoreInfo = new SLCoreInfo(launcher);
