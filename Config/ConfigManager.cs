@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SLCore.Config.ConfigPrefabs;
 using SLCore.Errors;
 
@@ -9,15 +11,21 @@ public class ConfigManager
 
     public ConfigManager()
     {
-        if (!Directory.Exists(@"./sl_settings"))
-            Directory.CreateDirectory(@"./sl_settings");
-        if (!File.Exists(@"./sl_settings/config.json"))
-            File.Create(@"./sl_settings/config.json");
-        
         _configs = new List<IConfigSection>();
 
-        var javaPathConfig = new JavaPathConfig();
-        _configs.Add(javaPathConfig);
+        Register(new JavaPathConfig());
+        
+        if (!Directory.Exists(@"./.sl_settings"))
+            Directory.CreateDirectory(@"./.sl_settings");
+        if (!File.Exists(@"./.sl_settings/config.json"))
+        {
+            JObject obj = new JObject();
+
+            foreach (var config in _configs)
+            {
+                obj[config.ConfigId] = JsonConvert.SerializeObject(config);
+            }
+        }
     }
 
     public void Register(IConfigSection config)
