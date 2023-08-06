@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using SLCore.Commands;
 
 namespace SLCore.Config;
@@ -7,10 +8,8 @@ namespace SLCore.Config;
 /// </summary>
 public interface IConfigSection
 {
+    [Newtonsoft.Json.JsonIgnore]
     public string ConfigId { get; }
+    [Newtonsoft.Json.JsonIgnore]
     public string ConfigAliase { get; }
-    public object? ConfigContent { get; set; }
-
-    public void ReadConfig(string path);
-    public void WriteConfig(string path, string content);
 }
