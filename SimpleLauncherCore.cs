@@ -2,6 +2,7 @@
 using MinecraftLaunch.Modules.Utils;
 using SLCore.Commands;
 using SLCore.Commands.Prefabs;
+using SLCore.Config;
 using SLCore.CoreInfo;
 
 namespace SLCore;
@@ -12,12 +13,14 @@ public sealed class SimpleLauncherCore : IDisposable
     public SLCommandManager SlCommandManager { get; }
     public SLCoreInfo CoreInfo { get; }
     public LaunchConfig LaunchConfig { get; set; }
+    public ConfigManager ConfigManager { get; set; }
 
     public SimpleLauncherCore(ILauncher launcher)
     {
         this.CoreToolKit = new(".minecraft");
         this.LaunchConfig = new LaunchConfig();
         this.SlCommandManager = new SLCommandManager(this);
+        this.ConfigManager = new ConfigManager();
         this.CoreInfo = new SLCoreInfo(launcher);
 
         this.SlCommandManager.Register(new HelpCommand(this));
