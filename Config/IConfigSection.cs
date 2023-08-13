@@ -12,4 +12,8 @@ public interface IConfigSection
     public string ConfigId { get; }
     [Newtonsoft.Json.JsonIgnore]
     public string ConfigAliase { get; }
+    /// <summary>
+    /// 当启动器在Setup方法中检查配置中的字段是否合法时调用这个方法
+    /// </summary>
+    public void OnChecking();
 }
