@@ -25,6 +25,12 @@ public class ConfigManager
             {
                 obj[config.ConfigId] = JsonConvert.SerializeObject(config);
             }
+
+            FileStream file = new FileStream(@"./.sl_settings/config.json", FileMode.Create, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.Write(obj.ToString());
+            writer.Close();
+            file.Close();
         }
     }
 
@@ -46,4 +52,6 @@ public class ConfigManager
 
         throw new WrongConfigSectionError($"指定了错误的配置段: {idOrAliase}; 这个问题也可能是您的拼写错误导致的，请您检查您的拼写");
     }
+
+    public List<IConfigSection> GetConfigs() => _configs;
 }
